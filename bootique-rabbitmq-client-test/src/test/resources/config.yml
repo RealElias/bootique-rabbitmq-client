@@ -1,0 +1,16 @@
+rabbitmq:
+  connections:
+    conn1:
+      type: amqp
+      host: localhost
+      port: 3333
+    conn2:
+      type: uri
+      uri: amqp://guest:guest@localhost:3333
+  exchanges:
+    exch1:
+      type: DIRECT
+      durable: true
+  queues:
+    queue1:
+      durable: true

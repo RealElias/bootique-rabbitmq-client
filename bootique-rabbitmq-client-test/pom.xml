@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>bootique-rabbitmq-client-parent</artifactId>
+        <groupId>io.bootique.rabbitmq-client</groupId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>bootique-rabbitmq-client-io.bootique.rabbitmq.client.test</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.qpid</groupId>
+            <artifactId>qpid-broker</artifactId>
+            <version>6.1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.bootique</groupId>
+            <artifactId>bootique-test</artifactId>
+            <version>${bootique-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.bootique.rabbitmq-client</groupId>
+            <artifactId>bootique-rabbitmq-client</artifactId>
+            <version>${version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>

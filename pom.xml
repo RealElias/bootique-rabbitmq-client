@@ -22,6 +22,7 @@
 
     <modules>
         <module>bootique-rabbitmq-client</module>
+        <module>bootique-rabbitmq-client-test</module>
     </modules>
 
     <properties>
@@ -56,7 +57,7 @@
 
             <dependency>
                 <groupId>io.bootique</groupId>
-                <artifactId>bootique-test</artifactId>
+                <artifactId>bootique-io.bootique.rabbitmq.client.test</artifactId>
                 <version>${bootique-version}</version>
             </dependency>
             <dependency>
