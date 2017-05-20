@@ -26,24 +26,33 @@ public class RabbitMQModuleIT {
     public BQTestFactory testFactory = new BQTestFactory();
 
     @Test
-    public void testFullFlow() throws IOException {
+    public void testFullFlow() throws Exception {
         BQRuntime runtime = testFactory.app("-c", "classpath:config.yml")
                 .module(RabbitMQModule.class)
                 .createRuntime()
                 .getRuntime();
 
-        ConnectionFactory connectionFactory = runtime.getInstance(ConnectionFactory.class);
-        ChannelFactory channelFactory = runtime.getInstance(ChannelFactory.class);
+        InMemoryBrokerManager brokerManager = new InMemoryBrokerManager();
+        try {
+            brokerManager.startBroker();
 
-        Connection sendConnection = connectionFactory.forName("conn1");
-        Channel sendChannel = channelFactory.openChannel(sendConnection, "exch1", "queue1", ROUTING_KEY);
+            ConnectionFactory connectionFactory = runtime.getInstance(ConnectionFactory.class);
+            ChannelFactory channelFactory = runtime.getInstance(ChannelFactory.class);
 
-        Connection receiveConnection = connectionFactory.forName("conn2");
-        Channel receiveChannel = channelFactory.openChannel(receiveConnection, "exch1", "queue1", ROUTING_KEY);
+            Connection sendConnection = connectionFactory.forName("conn1");
+            Channel sendChannel = channelFactory.openChannel(sendConnection, "exch1", "queue1", ROUTING_KEY);
 
-        sendChannel.basicPublish("", "queue1",  null, TEST_MESSAGE.getBytes());
-        receiveChannel.basicConsume("queue1", true, customConsumer(receiveChannel));
-        assertEquals(TEST_MESSAGE, cache);
+            Connection receiveConnection = connectionFactory.forName("conn2");
+            Channel receiveChannel = channelFactory.openChannel(receiveConnection, "exch1", "queue1", ROUTING_KEY);
+
+            sendChannel.basicPublish("", "queue1", null, TEST_MESSAGE.getBytes());
+            receiveChannel.basicConsume("queue1", true, customConsumer(receiveChannel));
+            assertEquals(TEST_MESSAGE, cache);
+            brokerManager.stopBroker();
+        }
+        finally {
+            brokerManager.stopBroker();
+        }
     }
 
     private DefaultConsumer customConsumer(Channel channel) {
