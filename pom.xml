@@ -26,7 +26,7 @@
 
     <properties>
         <bootique-version>0.20</bootique-version>
-        <rabbitmq-version>4.0.0</rabbitmq-version>
+        <rabbitmq-version>5.4.3</rabbitmq-version>
     </properties>
 
     <dependencyManagement>
